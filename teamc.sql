@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2025-01-10 07:29:39
+-- 生成日時: 2025-01-10 08:16:00
 -- サーバのバージョン： 10.4.32-MariaDB
 -- PHP のバージョン: 8.2.12
 
@@ -29,7 +29,6 @@ USE `teamc`;
 -- テーブルの構造 `students`
 --
 
-DROP TABLE IF EXISTS `students`;
 CREATE TABLE `students` (
   `id` int(255) NOT NULL,
   `first_name` varchar(20) NOT NULL,
@@ -45,7 +44,6 @@ CREATE TABLE `students` (
 -- テーブルの構造 `teachers`
 --
 
-DROP TABLE IF EXISTS `teachers`;
 CREATE TABLE `teachers` (
   `id` int(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -55,6 +53,13 @@ CREATE TABLE `teachers` (
   `authority` varchar(20) NOT NULL,
   `notes` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- テーブルのデータのダンプ `teachers`
+--
+
+INSERT INTO `teachers` (`id`, `password`, `first_name`, `last_name`, `email`, `authority`, `notes`) VALUES
+(1, '$2y$10$wNIZD7mtW26fV9nk6/0lsuslYKJYFVoPkm08eClYO9vbIfesl8yGi', '山田', '太郎', 'test@example.com', 'admin', 'テスト');
 
 --
 -- ダンプしたテーブルのインデックス
@@ -87,7 +92,7 @@ ALTER TABLE `students`
 -- テーブルの AUTO_INCREMENT `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
