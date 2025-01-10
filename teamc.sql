@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2025-01-10 07:19:03
+-- 生成日時: 2025-01-10 07:29:39
 -- サーバのバージョン： 10.4.32-MariaDB
 -- PHP のバージョン: 8.2.12
 
@@ -31,6 +31,7 @@ USE `teamc`;
 
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE `students` (
+  `id` int(255) NOT NULL,
   `first_name` varchar(20) NOT NULL,
   `last_name` varchar(20) NOT NULL,
   `teacher_id` int(255) NOT NULL,
@@ -63,6 +64,7 @@ CREATE TABLE `teachers` (
 -- テーブルのインデックス `students`
 --
 ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `teacher_id` (`teacher_id`) USING BTREE;
 
 --
@@ -74,6 +76,12 @@ ALTER TABLE `teachers`
 --
 -- ダンプしたテーブルの AUTO_INCREMENT
 --
+
+--
+-- テーブルの AUTO_INCREMENT `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- テーブルの AUTO_INCREMENT `teachers`
