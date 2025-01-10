@@ -1,12 +1,12 @@
 <?php
 session_start();
+require 'config.php';
+require 'functions.php';
+
 if (isset($_SESSION['user_id'])) {
     header('Location: dashboard.php');
     exit();
 }
-
-require 'config.php';
-require 'functions.php';
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
