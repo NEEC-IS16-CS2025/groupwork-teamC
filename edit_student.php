@@ -3,68 +3,36 @@ session_start();
 require 'config.php';
 require 'functions.php';
 
-// ユーザ認証チェック
-if (!is_logged_in()) {
-    header('Location: index.php');
-    exit();
-}
-
-// 権限チェック
-if (!has_permission('operator')) {
+// ユーザ認証と権限チェック
+if (!is_logged_in() || !has_permission('operator')) {
     echo '権限がありません。';
     exit();
 }
 
-$is_new = false;
+if (!isset($_GET['id'])) {
+    echo '生徒IDが指定されていません。';
+    exit();
+}
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['id'])) {
-        // 既存データの編集
-        $stmt = $pdo->prepare('SELECT * FROM students WHERE id = ?');
-        $stmt->execute([$_GET['id']]);
-        $student = $stmt->fetch();
+$stmt = $pdo->prepare('SELECT * FROM students WHERE id = ?');
+$stmt->execute([$_GET['id']]);
+$student = $stmt->fetch();
 
-        if (!$student) {
-            echo '生徒情報が見つかりません。';
-            exit();
-        }
-    } else {
-        // 新規作成
-        $is_new = true;
-        $student = [
-            'id' => '',
-            'first_name' => '',
-            'last_name' => '',
-            'teacher_id' => '',
-            'birth_date' => '',
-            'notes' => ''
-        ];
-    }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['delete'])) {
-        // 削除処理
-        $stmt = $pdo->prepare('DELETE FROM students WHERE id = ?');
-        $stmt->execute([$_POST['id']]);
-        header('Location: dashboard.php');
-        exit();
-    }
+if (!$student) {
+    echo '生徒情報が見つかりません。';
+    exit();
+}
 
-    $id = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $teacher_id = $_POST['teacher_id'];
     $birth_date = $_POST['birth_date'];
     $notes = $_POST['notes'];
 
-    if (empty($id)) {
-        // 新規追加
-        $stmt = $pdo->prepare('INSERT INTO students (first_name, last_name, teacher_id, birth_date, notes) VALUES (?, ?, ?, ?, ?)');
-        $stmt->execute([$first_name, $last_name, $teacher_id, $birth_date, $notes]);
-    } else {
-        // 更新処理
-        $stmt = $pdo->prepare('UPDATE students SET first_name = ?, last_name = ?, teacher_id = ?, birth_date = ?, notes = ? WHERE id = ?');
-        $stmt->execute([$first_name, $last_name, $teacher_id, $birth_date, $notes, $id]);
-    }
+    // 生徒情報の更新
+    $stmt = $pdo->prepare('UPDATE students SET first_name = ?, last_name = ?, teacher_id = ?, birth_date = ?, notes = ? WHERE id = ?');
+    $stmt->execute([$first_name, $last_name, $teacher_id, $birth_date, $notes, $_GET['id']]);
 
     header('Location: dashboard.php');
     exit();
@@ -76,14 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $is_new ? '生徒情報追加' : '生徒情報編集'; ?></title>
+    <title>生徒情報編集</title>
 </head>
 
 <body>
-    <h1><?php echo $is_new ? '生徒情報追加' : '生徒情報編集'; ?></h1>
+    <h1>生徒情報編集</h1>
     <form method="POST">
-        <input type="hidden" name="id" value="<?php echo htmlspecialchars($student['id']); ?>">
-
         <label for="first_name">姓:</label>
         <input type="text" id="first_name" name="first_name"
             value="<?php echo htmlspecialchars($student['first_name']); ?>" required>
@@ -108,11 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <textarea id="notes" name="notes"><?php echo htmlspecialchars($student['notes']); ?></textarea>
         <br>
 
-        <button type="submit"><?php echo $is_new ? '追加' : '保存'; ?></button>
-
-        <?php if (!$is_new): ?>
-            <button type="submit" name="delete" onclick="return confirm('本当に削除しますか？')">削除</button>
-        <?php endif; ?>
+        <button type="submit">保存</button>
     </form>
 
     <a href="dashboard.php">戻る</a>

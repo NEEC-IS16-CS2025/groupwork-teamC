@@ -1,4 +1,5 @@
 <?php
+require 'config.php';
 function login($email, $password, $pdo)
 {
     $stmt = $pdo->prepare('SELECT * FROM teachers WHERE email = ?');
