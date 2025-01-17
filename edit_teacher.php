@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $is_new = true;
         $teacher = [
             'id' => '',
+            'password' => '',
             'first_name' => '',
             'last_name' => '',
             'email' => '',
@@ -50,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     $id = $_POST['id'];
+    $password = $_POST['password'];
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
@@ -58,12 +60,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (empty($id)) {
         // 新規追加
-        $stmt = $pdo->prepare('INSERT INTO teachers (first_name, last_name, email, authority, notes) VALUES (?, ?, ?, ?, ?)');
-        $stmt->execute([$first_name, $last_name, $email, $authority, $notes]);
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare('INSERT INTO teachers (password, first_name, last_name, email, authority, notes) VALUES (?,?, ?, ?, ?, ?)');
+        $stmt->execute([$hashed_password, $first_name, $last_name, $email, $authority, $notes]);
     } else {
         // 更新処理
-        $stmt = $pdo->prepare('UPDATE teachers SET first_name = ?, last_name = ?, email = ?, authority = ?, notes = ? WHERE id = ?');
-        $stmt->execute([$first_name, $last_name, $email, $authority, $notes, $id]);
+        // パスワードを変更する場合のみハッシュ化
+        if ($password !== $teacher['password']) {
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $pdo->prepare('UPDATE teachers SET password = ?, first_name = ?, last_name = ?, email = ?, authority = ?, notes = ? WHERE id = ?');
+            $stmt->execute([$hashed_password, $first_name, $last_name, $email, $authority, $notes, $id]);
+        } else {
+            // パスワードを変更しない場合は、ハッシュ化せずに更新
+            $stmt = $pdo->prepare('UPDATE teachers SET first_name = ?, last_name = ?, email = ?, authority = ?, notes = ? WHERE id = ?');
+            $stmt->execute([$first_name, $last_name, $email, $authority, $notes, $id]);
+        }
     }
 
     header('Location: dashboard.php');
@@ -83,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <h1><?php echo $is_new ? '講師情報追加' : '講師情報編集'; ?></h1>
     <form method="POST">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($teacher['id']); ?>">
-
+        
         <label for="first_name">姓:</label>
         <input type="text" id="first_name" name="first_name"
             value="<?php echo htmlspecialchars($teacher['first_name']); ?>" required>
