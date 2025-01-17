@@ -3,7 +3,7 @@ session_start();
 require 'config.php';
 require 'functions.php';
 
-// ユーザ認証チェック
+// ユーザ認証チェック4
 if (!is_logged_in()) {
     header('Location: index.php');
     exit();
