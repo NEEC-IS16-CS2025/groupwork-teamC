@@ -62,7 +62,7 @@ $teachers = has_permission('admin') ? $pdo->query('SELECT * FROM teachers')->fet
 
     <?php if (has_permission('admin')): ?>
         <h2>講師一覧</h2>
-        <a href="edit_teacher.php">追加</a>
+        <a href="add_teacher.php">追加</a>
         <table border="1">
             <tr>
                 <th>姓</th>
