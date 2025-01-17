@@ -26,6 +26,7 @@ $teachers = has_permission('admin') ? $pdo->query('SELECT * FROM teachers')->fet
     <p>権限: <?php echo $authority; ?></p>
     <a href="logout.php">ログアウト</a>
 
+    <!-- 権限がオペレーター以上の場合表示される -->
     <?php if (has_permission('operator')): ?>
         <h2>生徒一覧</h2>
         <a href="add_student.php">生徒を追加</a>
@@ -60,6 +61,7 @@ $teachers = has_permission('admin') ? $pdo->query('SELECT * FROM teachers')->fet
         </table>
     <?php endif; ?>
 
+    <!--権限がadmin以上の場合表示される-->
     <?php if (has_permission('admin')): ?>
         <h2>講師一覧</h2>
         <a href="add_teacher.php">講師を追加</a>
