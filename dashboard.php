@@ -32,7 +32,7 @@ if (has_permission('admin')) {
     <p>権限: <?php echo $authority; ?></p>
     <a href="logout.php">ログアウト</a>
 
-    <!-- 権限がオペレーター以上の場合表示される -->
+    <!-- 権限がgeneral以上の場合表示される -->
     <?php if (has_permission('general')): ?>
         <h2>生徒一覧</h2>
         <a href="add_student.php">生徒を追加</a>
@@ -65,28 +65,32 @@ if (has_permission('admin')) {
         </table>
     <?php endif; ?>
 
-    <!--権限がadmin以上の場合表示される-->
+    <!--権限がoperator以上の場合表示される-->
     <?php if (has_permission('operator')): ?>
         <h2>講師一覧</h2>
         <a href="add_teacher.php">講師を追加</a>
         <table border="1">
             <tr>
+                <!--権限がadmin以上の場合idとpassの項目を追加する-->
                 <?php if (has_permission("admin")): ?>
                     <th>id</th>
                     <th>パスワード</th>
                 <?php endif; ?>
+
                 <th>姓</th>
                 <th>名</th>
                 <th>メールアドレス</th>
                 <th>権限</th>
                 <th>特記事項</th>
+
+                <!--権限がadmin以上の場合編集ボタンを表示する-->
                 <?php if (has_permission("admin")): ?>
-                    <th>操作</th>
+                    <th>編集</th>
                 <?php endif; ?>
             </tr>
             <?php foreach ($teachers as $teacher): ?>
                 <tr>
-
+                    <!--権限がadmin以上の場合idとパスワードを表示する-->
                     <?php if (has_permission("admin")): ?>
                         <td><?php echo htmlspecialchars($teacher['id']); ?></td>
                         <td><?php echo htmlspecialchars($teacher['password']); ?></td>
@@ -97,6 +101,7 @@ if (has_permission('admin')) {
                     <td><?php echo htmlspecialchars($teacher['authority']); ?></td>
                     <td><?php echo htmlspecialchars($teacher['notes']); ?></td>
 
+                    <!--権限がadmin以上の場合 編集・削除ボタンを表示する-->
                     <?php if (has_permission("admin")): ?>
                         <td>
                             <a href="edit_teacher.php?id=<?php echo $teacher['id']; ?>">編集</a>
