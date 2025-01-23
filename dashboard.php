@@ -33,7 +33,7 @@ if (has_permission('admin')) {
     <a href="logout.php">ログアウト</a>
 
     <!-- 権限がオペレーター以上の場合表示される -->
-    <?php if (has_permission('operator')): ?>
+    <?php if (has_permission('general')): ?>
         <h2>生徒一覧</h2>
         <a href="add_student.php">生徒を追加</a>
         <table border="1">
@@ -57,9 +57,7 @@ if (has_permission('admin')) {
                     <?php if (has_permission('operator')): ?>
                         <td>
                             <a href="edit_student.php?id=<?php echo $student['id']; ?>">編集</a>
-                            <?php if (has_permission('admin')): ?>
-                                <a href="delete_student.php?id=<?php echo $student['id']; ?>">削除</a>
-                            <?php endif; ?>
+                            <a href="delete_student.php?id=<?php echo $student['id']; ?>">削除</a>
                         </td>
                     <?php endif; ?>
                 </tr>
