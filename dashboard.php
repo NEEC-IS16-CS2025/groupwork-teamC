@@ -10,7 +10,13 @@ if (!is_logged_in()) {
 
 $authority = get_user_authority();
 $students = $pdo->query('SELECT * FROM students')->fetchAll();
-$teachers = has_permission('admin') ? $pdo->query('SELECT * FROM teachers')->fetchAll() : [];
+if (has_permission('admin')) {
+    $teachers = $pdo->query('SELECT * FROM teachers')->fetchAll();
+} elseif (has_permission('operator')) {
+    $teachers = $pdo->query('SELECT * FROM teachers WHERE authority IN ("general", "operator")')->fetchAll();
+} else {
+    $teachers = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +68,7 @@ $teachers = has_permission('admin') ? $pdo->query('SELECT * FROM teachers')->fet
     <?php endif; ?>
 
     <!--権限がadmin以上の場合表示される-->
-    <?php if (has_permission('admin')): ?>
+    <?php if (has_permission('operator')): ?>
         <h2>講師一覧</h2>
         <a href="add_teacher.php">講師を追加</a>
         <table border="1">
@@ -72,7 +78,9 @@ $teachers = has_permission('admin') ? $pdo->query('SELECT * FROM teachers')->fet
                 <th>メールアドレス</th>
                 <th>権限</th>
                 <th>特記事項</th>
-                <th>操作</th>
+                <?php if (has_permission("admin")): ?>
+                    <th>操作</th>
+                <?php endif; ?>
             </tr>
             <?php foreach ($teachers as $teacher): ?>
                 <tr>
@@ -81,10 +89,13 @@ $teachers = has_permission('admin') ? $pdo->query('SELECT * FROM teachers')->fet
                     <td><?php echo htmlspecialchars($teacher['email']); ?></td>
                     <td><?php echo htmlspecialchars($teacher['authority']); ?></td>
                     <td><?php echo htmlspecialchars($teacher['notes']); ?></td>
-                    <td>
-                        <a href="edit_teacher.php?id=<?php echo $teacher['id']; ?>">編集</a>
-                        <a href="delete_teacher.php?id=<?php echo $teacher['id']; ?>">削除</a>
-                    </td>
+
+                    <?php if (has_permission("admin")): ?>
+                        <td>
+                            <a href="edit_teacher.php?id=<?php echo $teacher['id']; ?>">編集</a>
+                            <a href="delete_teacher.php?id=<?php echo $teacher['id']; ?>">削除</a>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         </table>
