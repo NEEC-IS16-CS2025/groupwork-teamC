@@ -54,12 +54,14 @@ if (has_permission('admin')) {
                     <td><?php echo htmlspecialchars($student['teacher_id']); ?></td>
                     <td><?php echo htmlspecialchars($student['birth_date']); ?></td>
                     <td><?php echo htmlspecialchars($student['notes']); ?></td>
-                    <?php if (has_permission('operator')): ?>
-                        <td>
+                    <td>
+                        <?php if (has_permission('operator')): ?>
                             <a href="edit_student.php?id=<?php echo $student['id']; ?>">編集</a>
                             <a href="delete_student.php?id=<?php echo $student['id']; ?>">削除</a>
-                        </td>
-                    <?php endif; ?>
+                        <?php elseif (has_permission('general') && $student['teacher_id'] == $_SESSION['user_id']): ?>
+                            <a href="edit_student_note.php?id=<?php echo $student['id']; ?>">特記事項編集</a>
+                        <?php endif; ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </table>
