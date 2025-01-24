@@ -8,8 +8,15 @@ if (!is_logged_in()) {
     exit();
 }
 
+// ----- 情報の取得 ----- //
 $authority = get_user_authority();
-$students = $pdo->query('SELECT * FROM students')->fetchAll();
+// 生徒情報の取得 + 担当講師idから講師の名前を取得
+$students = $pdo->query('
+    SELECT s.*, t.first_name AS teacher_first_name, t.last_name AS teacher_last_name 
+    FROM students s
+    LEFT JOIN teachers t ON s.teacher_id = t.id
+')->fetchAll();
+// 権限に対応した講師情報を取得
 if (has_permission('admin')) {
     $teachers = $pdo->query('SELECT * FROM teachers')->fetchAll();
 } elseif (has_permission('operator')) {
@@ -51,7 +58,14 @@ if (has_permission('admin')) {
                 <tr>
                     <td><?php echo htmlspecialchars($student['first_name']); ?></td>
                     <td><?php echo htmlspecialchars($student['last_name']); ?></td>
-                    <td><?php echo htmlspecialchars($student['teacher_id']); ?></td>
+                    <td>
+                        <!-- 生徒情報の講師情報はidから講師の名前を取得して表示する -->
+                        <?php if ($student['teacher_first_name']): ?>
+                            <?php echo htmlspecialchars($student['teacher_first_name'] . ' ' . $student['teacher_last_name']); ?>
+                        <?php else: ?>
+                            未設定
+                        <?php endif; ?>
+                    </td>
                     <td><?php echo htmlspecialchars($student['birth_date']); ?></td>
                     <td><?php echo htmlspecialchars($student['notes']); ?></td>
                     <td>
