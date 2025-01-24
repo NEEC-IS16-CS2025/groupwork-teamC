@@ -24,17 +24,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "有効なメールアドレスを入力してください。";
     } else {
-        try {
-            // パスワードをハッシュ化
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // メールアドレスの重複チェック
+        $stmt = $pdo->prepare("SELECT id FROM teachers WHERE email = ?");
+        $stmt->execute([$email]);
+        if ($stmt->fetch()) {
+            $error = "このメールアドレスは既に使用されています。";
+        } else {
+            try {
+                // パスワードをハッシュ化
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            // データベースに挿入
-            $stmt = $pdo->prepare("INSERT INTO teachers (first_name, last_name, email, authority, notes, password) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$first_name, $last_name, $email, $authority, $notes, $hashed_password]);
+                // データベースに挿入
+                $stmt = $pdo->prepare("INSERT INTO teachers (first_name, last_name, email, authority, notes, password) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt->execute([$first_name, $last_name, $email, $authority, $notes, $hashed_password]);
 
-            $success = "講師情報を登録しました。";
-        } catch (PDOException $e) {
-            $error = "講師情報の登録に失敗しました: " . $e->getMessage();
+                $success = "講師情報を登録しました。";
+            } catch (PDOException $e) {
+                $error = "講師情報の登録に失敗しました: " . $e->getMessage();
+            }
         }
     }
 }
