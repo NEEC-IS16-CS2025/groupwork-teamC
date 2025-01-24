@@ -87,12 +87,6 @@ if (has_permission('admin')) {
         <a href="add_teacher.php">講師を追加</a>
         <table border="1">
             <tr>
-                <!--権限がadmin以上の場合idとpassの項目を追加する-->
-                <?php if (has_permission("admin")): ?>
-                    <th>id</th>
-                    <th>パスワード</th>
-                <?php endif; ?>
-
                 <th>姓</th>
                 <th>名</th>
                 <th>メールアドレス</th>
@@ -109,7 +103,6 @@ if (has_permission('admin')) {
                     <!--権限がadmin以上の場合idとパスワードを表示する-->
                     <?php if (has_permission("admin")): ?>
                         <td><?php echo htmlspecialchars($teacher['id']); ?></td>
-                        <td><?php echo htmlspecialchars($teacher['password']); ?></td>
                     <?php endif; ?>
                     <td><?php echo htmlspecialchars($teacher['first_name']); ?></td>
                     <td><?php echo htmlspecialchars($teacher['last_name']); ?></td>
