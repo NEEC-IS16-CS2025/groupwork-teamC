@@ -9,6 +9,9 @@ if (!is_logged_in() || !has_permission('operator')) {
     exit();
 }
 
+// 講師一覧を取得
+$teachers = $pdo->query('SELECT id, first_name, last_name FROM teachers')->fetchAll();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
@@ -45,7 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
 
         <label for="teacher_id">担当講師:</label>
-        <input type="text" id="teacher_id" name="teacher_id" required>
+        <select id="teacher_id" name="teacher_id" required>
+            <option value="">選択してください</option>
+            <?php foreach ($teachers as $teacher): ?>
+                <option value="<?php echo $teacher['id']; ?>">
+                    <?php echo htmlspecialchars($teacher['first_name'] . ' ' . $teacher['last_name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
         <br>
 
         <label for="birth_date">生年月日:</label>
