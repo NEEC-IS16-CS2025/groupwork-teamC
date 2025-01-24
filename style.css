@@ -50,7 +50,7 @@ table {
 
 table th,
 table td {
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     padding: 10px;
     text-align: left;
 }
@@ -76,7 +76,7 @@ a.button {
     background-color: #007bff;
     color: white;
     border-radius: 5px;
-    margin: 5px 0;
+    margin: 5px 5px;
     text-align: center;
     transition: background-color 0.3s ease;
 }
@@ -88,7 +88,7 @@ a.button:hover {
 /* ログアウトリンク */
 .logout {
     float: right;
-    margin-top: -40px;
+    margin-top: -35px;
     margin-right: 20px;
 }
 
@@ -110,10 +110,11 @@ footer {
 
 /* テーブルのスクロール設定 */
 .table-container {
-    max-height: 300px; /* テーブル全体の高さを制限 */
-    overflow-y: auto; /* 垂直スクロールを有効化 */
-    border: 1px solid #000000; /* 境界線を追加 */
-    margin-top: 10px;
+    max-height: none;
+    overflow-y: visible;
+    border: 1px solid #000000;
+    margin-top: 15px;
+    margin-bottom: 20px;
 }
 
 /* テーブルスタイル */

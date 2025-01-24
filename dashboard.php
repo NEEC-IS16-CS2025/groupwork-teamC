@@ -45,44 +45,46 @@ if (has_permission('admin')) {
         <h2>生徒一覧</h2>
         <a href="add_student.php" class="button">生徒を追加</a>
         <div class="table-container">
-        <table border="1">
-            <thead>
-            <tr>
-                <th>姓</th>
-                <th>名</th>
-                <th>担当講師</th>
-                <th>生年月日</th>
-                <th>特記事項</th>
-                <?php if (has_permission('operator')): ?>
-                    <th>操作</th>
-                <?php endif; ?>
-            </tr>
-            <?php foreach ($students as $student): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($student['first_name']); ?></td>
-                    <td><?php echo htmlspecialchars($student['last_name']); ?></td>
-                    <td>
-                        <!-- 生徒情報の講師情報はidから講師の名前を取得して表示する -->
-                        <?php if ($student['teacher_first_name']): ?>
-                            <?php echo htmlspecialchars($student['teacher_first_name'] . ' ' . $student['teacher_last_name']); ?>
-                        <?php else: ?>
-                            未設定
-                        <?php endif; ?>
-                    </td>
-                    <td><?php echo htmlspecialchars($student['birth_date']); ?></td>
-                    <td><?php echo htmlspecialchars($student['notes']); ?></td>
-                    <td>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>姓</th>
+                        <th>名</th>
+                        <th>担当講師</th>
+                        <th>生年月日</th>
+                        <th>特記事項</th>
                         <?php if (has_permission('operator')): ?>
-                            <a href="edit_student.php?id=<?php echo $student['id']; ?>"class="button">編集</a>
-                            <a href="delete_student.php?id=<?php echo $student['id']; ?>"class="button">削除</a>
-                        <?php elseif (has_permission('general') && $student['teacher_id'] == $_SESSION['user_id']): ?>
-                            <a href="edit_student_note.php?id=<?php echo $student['id']; ?>"class="button">特記事項編集</a>
+                            <th>操作</th>
                         <?php endif; ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </thead>
-        </table>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($students as $student): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($student['first_name']); ?></td>
+                            <td><?php echo htmlspecialchars($student['last_name']); ?></td>
+                            <td>
+                                <!-- 生徒情報の講師情報はidから講師の名前を取得して表示する -->
+                                <?php if ($student['teacher_first_name']): ?>
+                                    <?php echo htmlspecialchars($student['teacher_first_name'] . ' ' . $student['teacher_last_name']); ?>
+                                <?php else: ?>
+                                    未設定
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo htmlspecialchars($student['birth_date']); ?></td>
+                            <td><?php echo htmlspecialchars($student['notes']); ?></td>
+                            <td>
+                                <?php if (has_permission('operator')): ?>
+                                    <a href="edit_student.php?id=<?php echo $student['id']; ?>" class="button">編集</a>
+                                    <a href="delete_student.php?id=<?php echo $student['id']; ?>" class="button">削除</a>
+                                <?php elseif (has_permission('general') && $student['teacher_id'] == $_SESSION['user_id']): ?>
+                                    <a href="edit_student_note.php?id=<?php echo $student['id']; ?>" class="button">特記事項編集</a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </thead>
+            </table>
         </div>
     <?php endif; ?>
 
@@ -91,39 +93,41 @@ if (has_permission('admin')) {
         <h2>講師一覧</h2>
         <a href="add_teacher.php" class="button">講師を追加</a>
         <div class="table-container">
-        <table border="1">
-            <thead>
-            <tr>
-                <th>姓</th>
-                <th>名</th>
-                <th>メールアドレス</th>
-                <th>権限</th>
-                <th>特記事項</th>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>姓</th>
+                        <th>名</th>
+                        <th>メールアドレス</th>
+                        <th>権限</th>
+                        <th>特記事項</th>
 
-                <!--権限がadmin以上の場合編集ボタンを表示する-->
-                <?php if (has_permission("admin")): ?>
-                    <th>編集</th>
-                <?php endif; ?>
-            </tr>
-            <?php foreach ($teachers as $teacher): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($teacher['first_name']); ?></td>
-                    <td><?php echo htmlspecialchars($teacher['last_name']); ?></td>
-                    <td><?php echo htmlspecialchars($teacher['email']); ?></td>
-                    <td><?php echo htmlspecialchars($teacher['authority']); ?></td>
-                    <td><?php echo htmlspecialchars($teacher['notes']); ?></td>
+                        <!--権限がadmin以上の場合編集ボタンを表示する-->
+                        <?php if (has_permission("admin")): ?>
+                            <th>編集</th>
+                        <?php endif; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($teachers as $teacher): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($teacher['first_name']); ?></td>
+                            <td><?php echo htmlspecialchars($teacher['last_name']); ?></td>
+                            <td><?php echo htmlspecialchars($teacher['email']); ?></td>
+                            <td><?php echo htmlspecialchars($teacher['authority']); ?></td>
+                            <td><?php echo htmlspecialchars($teacher['notes']); ?></td>
 
-                    <!--権限がadmin以上の場合 編集・削除ボタンを表示する-->
-                    <?php if (has_permission("admin")): ?>
-                        <td>
-                            <a href="edit_teacher.php?id=<?php echo $teacher['id']; ?>" class="button">編集</a>
-                            <a href="delete_teacher.php?id=<?php echo $teacher['id']; ?>"class="button">削除</a>
-                        </td>
-                    <?php endif; ?>
-                </tr>
-            <?php endforeach; ?>
-            </thead>
-        </table>
+                            <!--権限がadmin以上の場合 編集・削除ボタンを表示する-->
+                            <?php if (has_permission("admin")): ?>
+                                <td>
+                                    <a href="edit_teacher.php?id=<?php echo $teacher['id']; ?>" class="button">編集</a>
+                                    <a href="delete_teacher.php?id=<?php echo $teacher['id']; ?>" class="button">削除</a>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                    </thead>
+            </table>
         </div>
     <?php endif; ?>
 </body>
