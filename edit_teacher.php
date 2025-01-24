@@ -30,12 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authority = $_POST['authority'];
     $notes = $_POST['notes'];
 
-    // 講師情報の更新
-    $stmt = $pdo->prepare('UPDATE teachers SET first_name = ?, last_name = ?, email = ?, authority = ?, notes = ? WHERE id = ?');
-    $stmt->execute([$first_name, $last_name, $email, $authority, $notes, $_GET['id']]);
+    // メールアドレスの重複チェック
+    $stmt = $pdo->prepare('SELECT id FROM teachers WHERE email = ? AND id != ?');
+    $stmt->execute([$email, $_GET['id']]);
+    if ($stmt->fetch()) {
+        $error = "このメールアドレスは既に使用されています。";
+    } else {
+        // 講師情報の更新
+        $stmt = $pdo->prepare('UPDATE teachers SET first_name = ?, last_name = ?, email = ?, authority = ?, notes = ? WHERE id = ?');
+        $stmt->execute([$first_name, $last_name, $email, $authority, $notes, $_GET['id']]);
 
-    header('Location: dashboard.php');
-    exit();
+        header('Location: dashboard.php');
+        exit();
+    }
 }
 ?>
 
@@ -49,6 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <h1>講師情報編集</h1>
+    <?php if (isset($error)): ?>
+        <div style="color: red; margin-bottom: 10px;">
+            <?php echo htmlspecialchars($error); ?>
+        </div>
+    <?php endif; ?>
     <form method="POST">
         <label for="first_name">姓:</label>
         <input type="text" id="first_name" name="first_name"

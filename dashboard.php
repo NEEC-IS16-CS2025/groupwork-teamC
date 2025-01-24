@@ -94,12 +94,6 @@ if (has_permission('admin')) {
         <table border="1">
             <thead>
             <tr>
-                <!--権限がadmin以上の場合idとpassの項目を追加する-->
-                <?php if (has_permission("admin")): ?>
-                    <th>id</th>
-                    <th>パスワード</th>
-                <?php endif; ?>
-
                 <th>姓</th>
                 <th>名</th>
                 <th>メールアドレス</th>
@@ -113,11 +107,6 @@ if (has_permission('admin')) {
             </tr>
             <?php foreach ($teachers as $teacher): ?>
                 <tr>
-                    <!--権限がadmin以上の場合idとパスワードを表示する-->
-                    <?php if (has_permission("admin")): ?>
-                        <td><?php echo htmlspecialchars($teacher['id']); ?></td>
-                        <td><?php echo htmlspecialchars($teacher['password']); ?></td>
-                    <?php endif; ?>
                     <td><?php echo htmlspecialchars($teacher['first_name']); ?></td>
                     <td><?php echo htmlspecialchars($teacher['last_name']); ?></td>
                     <td><?php echo htmlspecialchars($teacher['email']); ?></td>
