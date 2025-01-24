@@ -100,10 +100,6 @@ if (has_permission('admin')) {
             </tr>
             <?php foreach ($teachers as $teacher): ?>
                 <tr>
-                    <!--権限がadmin以上の場合idとパスワードを表示する-->
-                    <?php if (has_permission("admin")): ?>
-                        <td><?php echo htmlspecialchars($teacher['id']); ?></td>
-                    <?php endif; ?>
                     <td><?php echo htmlspecialchars($teacher['first_name']); ?></td>
                     <td><?php echo htmlspecialchars($teacher['last_name']); ?></td>
                     <td><?php echo htmlspecialchars($teacher['email']); ?></td>
