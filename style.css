@@ -1,0 +1,150 @@
+/* ベーススタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1 {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin: 0;
+    font-size: 24px;
+}
+
+h2 {
+    color: #007bff;
+    margin-top: 20px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* コンテナ */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* テーブル */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* ボタン */
+a.button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    margin: 5px 0;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+a.button:hover {
+    background-color: #0056b3;
+}
+
+/* ログアウトリンク */
+.logout {
+    float: right;
+    margin-top: -40px;
+    margin-right: 20px;
+}
+
+/* フォームリンクや操作リンク */
+.operation a {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+/* フッタースタイル */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #007bff;
+    color: white;
+    border-top: 1px solid #ddd;
+}
+
+/* テーブルのスクロール設定 */
+.table-container {
+    max-height: 300px; /* テーブル全体の高さを制限 */
+    overflow-y: auto; /* 垂直スクロールを有効化 */
+    border: 1px solid #000000; /* 境界線を追加 */
+    margin-top: 10px;
+}
+
+/* テーブルスタイル */
+.table-container table {
+    width: 100%; /* テーブルの幅を100%に設定 */
+    border-collapse: collapse; /* セルの境界を統合 */
+}
+
+/* ヘッダー行を固定 */
+.table-container thead th {
+    position: sticky; /* 固定する */
+    top: 0; /* 固定位置を上部に設定 */
+    background-color: #007bff; /* 背景色を設定 */
+    border: 1px solid #000000; /* 境界線 */
+    padding: 10px;
+}
+
+/* セルのスタイル */
+.table-container th,
+.table-container td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #000000;
+}
+
+/* 偶数行の背景色 */
+.table-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ホバー時の背景色 */
+.table-container tbody tr:hover {
+    background-color: #f1f1f1;
+}

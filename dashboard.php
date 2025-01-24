@@ -32,18 +32,21 @@ if (has_permission('admin')) {
 <head>
     <meta charset="UTF-8">
     <title>ダッシュボード</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h1>ダッシュボード</h1>
     <p>権限: <?php echo $authority; ?></p>
-    <a href="logout.php">ログアウト</a>
+    <a href="logout.php" class="button">ログアウト</a>
 
     <!-- 権限がgeneral以上の場合表示される -->
     <?php if (has_permission('general')): ?>
         <h2>生徒一覧</h2>
-        <a href="add_student.php">生徒を追加</a>
+        <a href="add_student.php" class="button">生徒を追加</a>
+        <div class="table-container">
         <table border="1">
+            <thead>
             <tr>
                 <th>姓</th>
                 <th>名</th>
@@ -70,22 +73,26 @@ if (has_permission('admin')) {
                     <td><?php echo htmlspecialchars($student['notes']); ?></td>
                     <td>
                         <?php if (has_permission('operator')): ?>
-                            <a href="edit_student.php?id=<?php echo $student['id']; ?>">編集</a>
-                            <a href="delete_student.php?id=<?php echo $student['id']; ?>">削除</a>
+                            <a href="edit_student.php?id=<?php echo $student['id']; ?>"class="button">編集</a>
+                            <a href="delete_student.php?id=<?php echo $student['id']; ?>"class="button">削除</a>
                         <?php elseif (has_permission('general') && $student['teacher_id'] == $_SESSION['user_id']): ?>
-                            <a href="edit_student_note.php?id=<?php echo $student['id']; ?>">特記事項編集</a>
+                            <a href="edit_student_note.php?id=<?php echo $student['id']; ?>"class="button">特記事項編集</a>
                         <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
+            </thead>
         </table>
+        </div>
     <?php endif; ?>
 
     <!--権限がoperator以上の場合表示される-->
     <?php if (has_permission('operator')): ?>
         <h2>講師一覧</h2>
-        <a href="add_teacher.php">講師を追加</a>
+        <a href="add_teacher.php" class="button">講師を追加</a>
+        <div class="table-container">
         <table border="1">
+            <thead>
             <tr>
                 <!--権限がadmin以上の場合idとpassの項目を追加する-->
                 <?php if (has_permission("admin")): ?>
@@ -120,13 +127,15 @@ if (has_permission('admin')) {
                     <!--権限がadmin以上の場合 編集・削除ボタンを表示する-->
                     <?php if (has_permission("admin")): ?>
                         <td>
-                            <a href="edit_teacher.php?id=<?php echo $teacher['id']; ?>">編集</a>
-                            <a href="delete_teacher.php?id=<?php echo $teacher['id']; ?>">削除</a>
+                            <a href="edit_teacher.php?id=<?php echo $teacher['id']; ?>" class="button">編集</a>
+                            <a href="delete_teacher.php?id=<?php echo $teacher['id']; ?>"class="button">削除</a>
                         </td>
                     <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
+            </thead>
         </table>
+        </div>
     <?php endif; ?>
 </body>
 
