@@ -1,0 +1,83 @@
+/* 全体的なスタイル */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f0f0f0; /* 全体的な背景色 */
+}
+
+h1 {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin: 0;
+    font-size: 24px;
+}
+
+/* フォーム */
+form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ラベルと入力欄 */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+/* ボタン */
+button[type="submit"] {
+    background-color: #2196F3; /* 青色 */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #1976D2; /* ホバー時の色 */
+}
+
+/* 戻るボタン */
+.button {
+    background-color: #fff;
+    color: #2196F3;
+    border: 1px solid #2196F3;
+    padding: 10px 20px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #2196F3;
+    color: #fff;
+}
+
+/* エラーメッセージ */
+.error {
+    color: #f44336; /* 赤色 */
+    margin-bottom: 10px;
+}
+
+/* 成功メッセージ */
+.success {
+    color: #4CAF50; /* 緑色 */
+    margin-bottom: 10px;
+}

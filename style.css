@@ -85,13 +85,6 @@ a.button:hover {
     background-color: #0056b3;
 }
 
-/* ログアウトリンク */
-.logout {
-    float: right;
-    margin-top: -40px;
-    margin-right: 20px;
-}
-
 /* フォームリンクや操作リンク */
 .operation a {
     margin-right: 5px;
@@ -106,20 +99,6 @@ footer {
     background-color: #007bff;
     color: white;
     border-top: 1px solid #ddd;
-}
-
-/* テーブルのスクロール設定 */
-.table-container {
-    max-height: 300px; /* テーブル全体の高さを制限 */
-    overflow-y: auto; /* 垂直スクロールを有効化 */
-    border: 1px solid #000000; /* 境界線を追加 */
-    margin-top: 10px;
-}
-
-/* テーブルスタイル */
-.table-container table {
-    width: 100%; /* テーブルの幅を100%に設定 */
-    border-collapse: collapse; /* セルの境界を統合 */
 }
 
 /* ヘッダー行を固定 */
