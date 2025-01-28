@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <h1>講師情報削除</h1>
-    <p>本当に削除しますか？</p>
     <form method="POST">
+        <p>本当に削除しますか？</p>
         <button type="submit">削除</button>
         <a href="dashboard.php" class="button">戻る</a>
     </form>
