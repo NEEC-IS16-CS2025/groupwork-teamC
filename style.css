@@ -1,129 +1,192 @@
-/* ベーススタイル */
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --radius: 0.5rem;
+    --transition: all 0.2s ease;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    display: flex;
+    margin: 0px;
+    background-color: var(--background);
+    color: var(--text);
+    transition: var(--transition);
 }
 
-h1 {
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    margin: 0;
-    font-size: 24px;
-}
-
-h2 {
-    color: #007bff;
-    margin-top: 20px;
-}
-
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* コンテナ */
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 20px;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+.sidebar {
+    width: 200px;
+    background-color: var(--surface);
     padding: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    transition: var(--transition);
 }
 
-/* テーブル */
+.sidebar h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.sidebar ul {
+    margin-top: 0;
+    padding-left: 0;
+}
+
+.sidebar ul:first-of-type {
+    margin-top: 0;
+}
+
+.menu-item {
+    list-style: none;
+    margin-bottom: 12px;
+}
+
+
+.menu-item a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+    border-radius: var(--radius);
+    transition: var(--transition);
+    gap: 12px;
+    font-weight: 600
+}
+
+.menu-item a:hover {
+    color: var(--primary);
+    background-color: var(--background);
+    transform: translateX(4px);
+}
+
+.menu-item a i {
+    margin: auto;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Table styles */
+.main-content {
+    flex: 1;
+    padding: 20px 20px 20px 20px;
+    overflow-x: auto;
+}
+
+.main-content h2 {
+    margin: 10px 0px;
+    padding-left: 10px;
+    font-size: 24px;
+    color: var(--text);
+    border-left: 4px solid var(--primary);
+}
+
+.table-container {
+    padding: 20px;
+    overflow-x: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background-color: var(--surface);
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 0 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    gap: 20px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    background-color: var(--surface);
+    table-layout: fixed;
 }
 
-table th,
-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
+th, td {
+    padding: 12px 15px;
     text-align: left;
+    border-bottom: 1px solid var(--border);
+    word-wrap: break-word;
 }
 
-table th {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
+/* 生徒情報テーブルの固定幅列 */
+.student-table th:nth-child(1),
+.student-table td:nth-child(1),
+.student-table th:nth-child(2), 
+.student-table td:nth-child(2),
+.student-table th:nth-child(3),
+.student-table td:nth-child(3),
+.student-table th:nth-child(4),
+.student-table td:nth-child(4),
+/* 講師情報テーブルの固定幅列 */
+.teacher-table th:nth-child(1),
+.teacher-table td:nth-child(1),
+.teacher-table th:nth-child(2), 
+.teacher-table td:nth-child(2),
+.teacher-table th:nth-child(3),
+.teacher-table td:nth-child(3),
+.teacher-table th:nth-child(4),
+.teacher-table td:nth-child(4),
+
+/* 生徒情報テーブルの特記事項列 */
+.student-table th:nth-child(5),
+.student-table td:nth-child(5){
+        width: auto;
+        white-space: normal;
+}
+/* 講師情報テーブルの特記事項列 */
+.teacher-table th:nth-child(5),
+.teacher-table td:nth-child(5) {
+    width: auto;
+    white-space: normal;
 }
 
-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+th {
+    background-color: var(--background);
+    font-weight: 600;
+    color: var(--text);
 }
 
-table tr:hover {
-    background-color: #f5f5f5;
+tr:hover {
+    background-color: var(--background);
 }
 
-/* ボタン */
-a.button {
+.button {
     display: inline-block;
-    padding: 8px 15px;
-    background-color: #007bff;
+    padding: 8px 16px;
+    background-color: var(--primary);
     color: white;
-    border-radius: 5px;
-    margin: 5px 0;
-    text-align: center;
-    transition: background-color 0.3s ease;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: var(--transition);
+    margin: 5px;
 }
 
-a.button:hover {
-    background-color: #0056b3;
-}
-
-/* フォームリンクや操作リンク */
-.operation a {
-    margin-right: 5px;
-    font-size: 14px;
-}
-
-/* フッタースタイル */
-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 0;
-    background-color: #007bff;
-    color: white;
-    border-top: 1px solid #ddd;
-}
-
-/* ヘッダー行を固定 */
-.table-container thead th {
-    position: sticky; /* 固定する */
-    top: 0; /* 固定位置を上部に設定 */
-    background-color: #007bff; /* 背景色を設定 */
-    border: 1px solid #000000; /* 境界線 */
-    padding: 10px;
-}
-
-/* セルのスタイル */
-.table-container th,
-.table-container td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #000000;
-}
-
-/* 偶数行の背景色 */
-.table-container tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* ホバー時の背景色 */
-.table-container tbody tr:hover {
-    background-color: #f1f1f1;
+.button:hover {
+    background-color: var(--primary-hover);
 }
