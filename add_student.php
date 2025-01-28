@@ -33,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
     <title>生徒情報追加</title>
 </head>
 
@@ -67,9 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
 
         <button type="submit">追加</button>
+        <a href="dashboard.php" class="button">戻る</a>
     </form>
-
-    <a href="dashboard.php">戻る</a>
 </body>
 
 </html>

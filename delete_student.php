@@ -38,6 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
     <title>生徒情報削除</title>
 </head>
 
@@ -46,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>本当に削除しますか？</p>
     <form method="POST">
         <button type="submit">削除</button>
+        <a href="dashboard.php" class="button">戻る</a>
     </form>
-    <a href="dashboard.php">戻る</a>
 </body>
 
 </html>
