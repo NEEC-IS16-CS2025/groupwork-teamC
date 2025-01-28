@@ -59,7 +59,7 @@ if (has_permission('admin')) {
             </li>
         </ul>
         <ul>
-            <li class="menu-item"><a href="profile.php">プロフィール</a></li>
+            <li class="menu-item"><a href="profile.php">マイページ</a></li>
             <li class="menu-item"><a href="logout.php">ログアウト</a></li>
         </ul>
     </div>
