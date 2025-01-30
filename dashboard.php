@@ -68,7 +68,9 @@ if (has_permission('admin')) {
         <div id="student-table" class="table-container">
             <div class="title-container">
                 <h2>生徒一覧</h2>
-                <a href="add_student.php" class="button">生徒を追加</a>
+                <?php if (has_permission('operator')): ?>
+                    <a href="add_student.php" class="button">生徒を追加</a>
+                <?php endif; ?>
             </div>
             <table>
                 <thead>
@@ -115,7 +117,9 @@ if (has_permission('admin')) {
         <div id="teacher-table" class="table-container" style="display: none;">
             <div class="title-container">
                 <h2>講師一覧</h2>
-                <a href="add_teacher.php" class="button">講師を追加</a>
+                <?php if (has_permission('admin')): ?>
+                    <a href="add_teacher.php" class="button">講師を追加</a>
+                <?php endif; ?>
             </div>
             <table>
                 <thead>
