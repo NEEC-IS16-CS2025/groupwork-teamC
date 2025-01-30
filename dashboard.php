@@ -80,9 +80,7 @@ if (has_permission('admin')) {
                         <th>担当講師</th>
                         <th>生年月日</th>
                         <th>特記事項</th>
-                        <?php if (has_permission('operator')): ?>
-                            <th>操作</th>
-                        <?php endif; ?>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
