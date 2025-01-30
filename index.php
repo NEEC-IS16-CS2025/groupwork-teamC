@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" id="password" name="password" required>
         <br>
         <button type="submit">ログイン</button>
+        <p style="color:red;"><?php echo $error; ?></p>
     </form>
-    <p style="color:red;"><?php echo $error; ?></p>
 </body>
 
 </html>
