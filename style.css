@@ -61,6 +61,7 @@ body {
     font-size: 15px;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 10px 0px;
     border-radius: var(--radius);
     transition: var(--transition);
