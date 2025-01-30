@@ -56,36 +56,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style2.css">
     <title>特記事項編集</title>
 </head>
 
 <body>
     <h1>特記事項編集</h1>
-    <a href="dashboard.php">戻る</a>
 
     <form method="post">
-        <table border="1">
-            <tr>
-                <th>姓</th>
-                <td><?php echo htmlspecialchars($student['first_name']); ?></td>
-            </tr>
-            <tr>
-                <th>名</th>
-                <td><?php echo htmlspecialchars($student['last_name']); ?></td>
-            </tr>
-            <tr>
-                <th>生年月日</th>
-                <td><?php echo htmlspecialchars($student['birth_date']); ?></td>
-            </tr>
-            <tr>
-                <th>特記事項</th>
-                <td>
-                    <textarea name="notes" rows="5"
-                        cols="40"><?php echo htmlspecialchars($student['notes']); ?></textarea>
-                </td>
-            </tr>
-        </table>
+        <label for="first_name">姓:</label>
+        <input type="text" id="first_name" value="<?php echo htmlspecialchars($student['first_name']); ?>" readonly>
+        <br>
+
+        <label for="last_name">名:</label>
+        <input type="text" id="last_name" value="<?php echo htmlspecialchars($student['last_name']); ?>" readonly>
+        <br>
+
+        <label for="birth_date">生年月日:</label>
+        <input type="text" id="birth_date" value="<?php echo htmlspecialchars($student['birth_date']); ?>" readonly>
+        <br>
+
+        <label for="notes">特記事項:</label>
+        <textarea id="notes" name="notes" rows="5"><?php echo htmlspecialchars($student['notes']); ?></textarea>
+        <br>
+
         <button type="submit">更新</button>
+        <a href="dashboard.php" class="button">戻る</a>
     </form>
 </body>
 
