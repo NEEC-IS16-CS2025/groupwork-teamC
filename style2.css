@@ -44,6 +44,7 @@ label {
     display: block;
     margin-bottom: 5px;
     color: var(--text);
+    font-weight: bold;
 }
 
 input, select, textarea {
